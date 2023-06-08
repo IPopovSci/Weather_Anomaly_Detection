@@ -3,7 +3,7 @@ from urllib.parse import urlencode
 import json
 from requests.exceptions import RequestException
 from datetime import date
-
+import io
 class WeatherDataAPI:
     def __init__(self,start_date,end_date):
         self.endpoint = "https://archive-api.open-meteo.com/v1/archive?"
@@ -49,13 +49,21 @@ class WeatherDataAPI:
                     locations[(city_data['latitude'], city_data['longitude'])] = city_data['name']
         return locations
 
-    def get_all_weather_data(self, city_names):
+    def get_all_weather_data(self, city_names,save_each):
         results = []
         locations = self.get_locations(city_names)
         for location in locations:
             lat, lon = location
             city_name = locations[location]
             data = self.get_weather_data(lat, lon, city_name)
+
+            if save_each:
+                #data = json.dumps(data)
+                current_date = date.today().strftime("%Y-%m-%d")
+                file_name = f"data/data_{city_name}_{current_date}.json"
+                #data = json.dumps(data)
+                with io.open(file_name, "w",newline='\r\n') as file:
+                    json.dump(data, file)
             results.append(data)
         return results
 
