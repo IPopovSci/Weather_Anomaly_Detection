@@ -23,7 +23,7 @@ The objective of this project is to utilize the OPTICS, Local Outlier Factor, an
 
 ### Use
 
-You can access the Tableau dashboard, which showcases the data and identified anomalies, either in the project files or through this link: [Dashboard Link](https://public.tableau.com/app/profile/ivan.popov2140/viz/WeatherTrendsAndAnomalyDetection/GlobalTrends).
+You can access the Tableau dashboard, which showcases the data and identified anomalies, either in the project files or through this link: [Dashboard Link](https://public.tableau.com/app/profile/ivan.popov2140/viz/ClimateChangeandAnomalyDetection/MainDashboard).
 
 The notebook containing the data preparation and anomaly identification using machine learning models is available within the project files or can be found on Kaggle at the following link: [Kaggle Notebook](https://www.kaggle.com/code/ivanpopovkablamo/weather-anomaly-detection).
 
