@@ -45,3 +45,25 @@ def clean_outlier_csv():
             print(outlier_df.columns, filename)
             outlier_df = outlier_df[['time', 'location_name']]
             outlier_df.to_csv(filename)
+
+'''Add rankings to mean temperature, to help Tableau viz'''
+def add_ranks(column='temperature_2m_mean'):
+    directory = 'data'
+    for filename in glob.iglob(f'{directory}/*'):
+        if filename.startswith('data\data_') and filename.endswith('.csv'):
+            city_df = pd.read_csv(filename)
+            city_df[column+'_rank']=city_df[column].rank(pct=True)
+            city_df.to_csv(filename)
+
+'''I can't believe I have to do this in python
+Will create a list of all the dates for outliers across all models without overlap'''
+def create_all_outlier_dates():
+    directory = 'data'
+    outlier_time_df = pd.DataFrame()
+    for filename in glob.iglob(f'{directory}/*'):
+        if not filename.startswith('data\data_'):
+            outlier_df = pd.read_csv(filename)
+
+            outlier_time_df = pd.concat([outlier_df,outlier_time_df],axis=0).drop_duplicates()
+    outlier_time_df.to_csv('data\Outlier_dates_no_dups.csv')
+
